@@ -5,20 +5,33 @@ const browserify = require("@badeball/cypress-cucumber-preprocessor/browserify")
 
 async function setupNodeEvents(on, config) {
 
-  // This is required for the preprocessor to be able to generate JSON reports after each run, and more,
+  //This is required for the preprocessor to be able to generate JSON reports after each run, and more,
   await preprocessor.addCucumberPreprocessorPlugin(on, config);
   on("file:preprocessor", browserify.default(config));
+  require('cypress-mochawesome-reporter/plugin')(on);
 
-  // Make sure to return the config object as it might have been modified by the plugin.
+  //Make sure to return the config object as it might have been modified by the plugin.
   return config;
 }
 
 module.exports = defineConfig({
+
+  reporter: 'cypress-mochawesome-reporter',
+    video: false,
+    reporterOptions: {
+      charts: true,
+      reportPageTitle: 'Cypress Inline Reporter',
+      embeddedScreenshots: true,
+      inlineAssets: true, //Adds the asserts inline
+
+  },
+  
   e2e: {    
       setupNodeEvents,
       specPattern: 'cypress/integration/feature/*.feature',
-      nonGlobalStepDefinitions: false
-           
+      nonGlobalStepDefinitions: false,
+      reportDir: 'reports/mochawesome'
+       
   },
 });
 

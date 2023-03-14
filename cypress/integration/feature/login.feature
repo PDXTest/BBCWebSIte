@@ -1,4 +1,4 @@
-Feature: Feature name
+Feature: Login to App First
 
     Feature Description
 

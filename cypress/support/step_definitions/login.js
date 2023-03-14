@@ -1,10 +1,15 @@
 import {Given} from '@badeball/cypress-cucumber-preprocessor'
+import { loginPage } from '../../support/loginPages/loginPage';
+
+//const {loginPage} =  require ('../../support/loginPages/loginPage.js')
+
+const lp = new loginPage();
 
 Given('Login to Orange HRM First Time', () => {
 
     //lomg to the application
     cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
-    cy.get('[name=username]').type('Admin')
+    cy.get(lp.username).type('Admin')
     cy.get('[name=password]').type('admin123')
     cy.get('[type=submit]').click()
 
@@ -25,7 +30,7 @@ Given('Login to Orange HRM Second Time', () => {
 
     //lomg to the application
     cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
-    cy.get('[name=username]').type('Admin')
+    cy.get(lp.username).type('Admin')
     cy.get('[name=password]').type('admin123')
     cy.get('[type=submit]').click()
 
@@ -42,3 +47,9 @@ Given('Login to Orange HRM Second Time', () => {
     cy.get('[role=listbox]').contains('Software Engineer').click()
 
 });
+
+Given(/^this is my first test$/, ()=>{
+
+
+
+})
